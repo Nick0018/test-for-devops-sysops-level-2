@@ -1,0 +1,19 @@
+1. Create a file called config.yaml, apply & test the config.
+$ kubectl apply -f monitoring/grafana/config.yaml
+$ kubectl get configmaps -n monitoring
+2. Create a file called values.yml.
+3. Now we can deploy Grafana with the overridden values.yml file and our datasource will be imported.
+$ helm install stable/grafana \
+    -f monitoring/grafana/values.yml \
+    --namespace monitoring \ 
+    --name grafana
+4. Check that it is running:
+$ kubectl get pods -n monitoring
+5. Get the Grafana Password, the username is admin.
+$ kubectl get secret \
+    --namespace monitoring grafana \
+    -o jsonpath="{.data.admin-password}" \
+    | base64 --decode ; echo
+6. Create a service called grafana-web
+kubectl expose deployment grafana --external-ip=10.128.0.57 --type=LoadBalancer --name=grafana-web --namespace monitoring
+7. Access the website via browser. Input username and password, import the dashboard 1860.

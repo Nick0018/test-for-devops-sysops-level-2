@@ -1,0 +1,27 @@
+1. Apply the Redis Master Deployment from the redis-master-deployment.yaml file:
+kubectl apply -f redis-master-deployment.yaml
+2. Query the list of Pods to verify that the Redis Master Pod is running:
+kubectl get pods --namespace development
+3. Apply the Redis Master Service from the following redis-master-service.yaml file:
+kubectl apply -f redis-master-service.yaml
+4. Query the list of Services to verify that the Redis Master Service is running:
+ kubectl get service --namespace development
+5. Apply the Redis Slave Deployment from the redis-slave-deployment.yaml file:
+ kubectl apply -f redis-slave-deployment.yaml
+6. Query the list of Pods to verify that the Redis Slave Pods are running:
+ kubectl get pods --namespace development
+7. Apply the Redis Slave Service from the following redis-slave-service.yaml file:
+ kubectl apply -f redis-slave-service.yaml
+8. Query the list of Services to verify that the Redis slave service is running:
+ kubectl get services --namespace development
+9. Apply the frontend Deployment from the frontend-deployment.yaml file:
+ kubectl apply -f frontend-deployment.yaml
+10. Query the list of Pods to verify that the three frontend replicas are running:
+ kubectl get pods -l app=guestbook -l tier=frontend --namespace development
+11. Apply the frontend Service from the frontend-service.yaml file:
+ kubectl apply -f frontend-service.yaml
+12.Query the list of Services to verify that the frontend Service is running:
+ kubectl get services --namespace development
+13. Access the guestbook website:
+curl -L http://10.128.0.51:32530(Private IP of k8s-node1 )
+or http://35.193.77.99:32530/(Public IP of k8s-node1)
