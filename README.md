@@ -15,6 +15,29 @@ Private IP    	Public IP
 
 Add firewall rule to allow the related port can be accessed.
 
+Configuration NFS.
+1. On nfs server, execute the following command
+$ sudo yum install nfs-utils
+$ sudo systemctl enable rpcbind
+$ sudo systemctl enable nfs
+2. Start the NFS
+$ sudo systemctl start rpcbind
+$ sudo systemctl start nfs
+3. Configure the share directory.
+$ sudo mkdir /data
+$ sudo chmod 755 /data
+$ sudo vi /etc/exports
+Add the line as below
+/data/     192.168.0.0/24(rw,sync,no_root_squash,no_all_squash)
+4. Restart the nfs service.
+$ sudo systemctl restart nfs
+
+5. On master node and 2 worker node, excute the following command.
+$ sudo yum install nfs-utils
+$ sudo systemctl enable rpcbind
+$ sudo systemctl start rpcbind
+
+
 Step1 Deploy the kubernetes cluster.
 ./kubernetes-cluser.sh in master node and 2 worker nodes.
 
